@@ -1,0 +1,44 @@
+class Solution {
+public:
+    vector<long long> kthPalindrome(vector<int>& queries, int intLength) {
+        vector<long long> ans;
+        int len=intLength/2;
+        if(intLength%2!=0)
+        {
+            len++;
+        }
+        
+        long long preval=(long long)pow(10,len-1);
+        int max=9*preval;
+        for(int j=0;j<queries.size();j++)
+        {
+            long long pre=preval;
+            if(queries[j]<=max){
+                
+                pre+=queries[j]-1;
+                string start= to_string(pre);
+                int i;
+                if(intLength%2!=0)
+                {
+                    i=len-2;
+                }
+                else
+                {
+                    i=len-1;
+                }
+                while(i>=0)
+                {
+                    start+= start[i];
+                    i--;
+                }
+                long long tmp= stoll(start);
+                ans.push_back(tmp);
+            }
+            else
+            {
+                ans.push_back(-1);
+            }
+        }
+        return ans;
+    }
+};
