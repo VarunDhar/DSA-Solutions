@@ -1,0 +1,34 @@
+class Solution {
+public:
+    int lengthOfLongestSubstring(string s) 
+    {
+    
+        map<char, int> mp;
+        int curr=0;
+        int ans=0;
+        int l=0;
+        int r=0;
+        while(l<s.length() and r<s.length())
+        {
+            if(mp.find(s[r])==mp.end())
+            {
+                mp[s[r]]=r;
+                curr++;
+                r++;
+            }
+            else
+            {
+                l=max(l,mp[s[r]]+1); //for eg. beacdab, when 2nd a occurs, l shifts to 3rd pos. and then 2nd b,
+                //l is suppose to move to 1, but it will again cause 'a' to duplicate, hence max is chosen
+                mp[s[r]]=r;
+                curr= r-l+1;
+                r++;
+            }
+            if(curr>ans)
+            {
+                ans=curr;
+            }
+        }
+        return ans;
+    }
+};
