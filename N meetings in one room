@@ -1,0 +1,50 @@
+class Solution
+{
+    public:
+    
+    struct meet{
+        int s;
+        int e;
+        int pos;
+    };
+    
+    bool comparator(meet a,meet b)
+    {
+        if(a.e > b.e)
+            return false;
+        else if( a.e == b.e)
+        {
+            if(a.pos<b.pos)
+                return true;
+            else
+                return false;
+        }
+        else
+            return true;
+    }
+    
+    //Function to find the maximum number of meetings that can
+    //be performed in a meeting room.
+    int maxMeetings(int start[], int end[], int n)
+    {
+        vector<meet> vec;
+        for(int i=0;i<n;i++)
+        {
+            vec.push_back({start[i],end[i],i});
+        }
+        sort(vec.begin(),vec.end(),comparator);
+        
+        int cnt=1;
+        
+        int e= vec[0].e;
+        for(int i=1;i<n;i++)
+        {
+            if(vec[i].s > e)
+            {
+                cnt++;
+                e=vec[i].e;
+            }
+        }
+        return cnt;
+    }
+};
