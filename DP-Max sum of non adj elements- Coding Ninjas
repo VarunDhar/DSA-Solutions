@@ -1,0 +1,25 @@
+int maxNon(vector<int> &nums, int index,vector<int> &dp)
+{
+    if(index==0)
+    {
+        return nums[0];
+    }
+    else if(index<0)
+    {
+        return 0;
+    }
+    else
+    {
+        if(dp[index]==-1)
+            dp[index] = max(nums[index]+maxNon(nums,index-2,dp), 
+                            maxNon(nums,index-1,dp));
+        return dp[index];
+    }
+}
+int maximumNonAdjacentSum(vector<int> &nums){
+    
+    int size= int(nums.size()) -1;
+    vector<int> dp(nums.size(),-1);
+    return maxNon(nums,size, dp);
+    
+}
