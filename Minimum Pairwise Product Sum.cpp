@@ -29,3 +29,5 @@ int main()
     cout << dpfun(arr1,arr2,0,0,dp) << endl;
     return 0;
 }
+// TC- O( arr1.size() * arr2.size() ) or O(n^2) 
+// SC- Same as TC
