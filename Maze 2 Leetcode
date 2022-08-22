@@ -1,0 +1,36 @@
+int shortestDistance(vector<vector<int>> &maze, vector<int> &start, vector<int> &destination) {
+        priority_queue< pair< int, pair<int, int>> , vector< pair<int, pair<int, int>>> , greater< pair<int, pair<int, int>>>> pq;
+        pq.push({0,{start[0],start[1]}});
+        
+        int m= maze.size();
+        int n= maze[0].size();
+        vector<int> dis(m*n+1, INT_MAX);
+        dis[start[0]*n + start[1]]= 0;
+        int travel[]= {-1,0,1,0,-1};
+        int cnt=0;
+        while(!pq.empty())
+        {
+            int distance= pq.top().first;
+            int x= pq.top().second.first;
+            int y= pq.top().second.second;
+            pq.pop();
+            for(int i=0;i<4;i++)
+            {
+                int tempx=x , tempy=y, cnt=0;
+                while(tempx < m and tempx>=0 and tempy < n and tempy>=0 and !maze[tempx][tempy])
+                {
+                    cnt++;
+                    tempx+= travel[i]; tempy+= travel[i+1];
+                }
+                cnt--;
+                tempx-= travel[i]; tempy-= travel[i+1];
+                if(dis[tempx*n + tempy] > cnt + distance)
+                {
+                    dis[tempx*n + tempy] = cnt + distance;
+                    pq.push({cnt + distance, {tempx, tempy}}); 
+                }
+            }
+        }
+        if(dis[destination[0]*n + destination[1]] == INT_MAX) return -1;
+        return dis[destination[0]*n + destination[1]];
+    }
