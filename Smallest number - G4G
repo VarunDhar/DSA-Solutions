@@ -1,0 +1,42 @@
+//{ Driver Code Starts
+#include<bits/stdc++.h> 
+using namespace std; 
+
+// } Driver Code Ends
+class Solution{   
+public:
+    string smallestNumber(int S, int D){
+        // code here 
+        if(D*9 < S)
+            return "-1";
+        vector<int> num(D,0);
+        num[0]=1;
+        int sum = S-1;
+        int i=D-1;
+        while(i >=0){
+            num[i] = sum>=9 ? 9:sum+num[i] ;
+            sum -= num[i];
+            i--;
+        }
+        string ans;
+        for(auto i: num)
+            ans+= to_string(i);
+        return ans;
+    }
+};
+
+//{ Driver Code Starts.
+int main() 
+{ 
+    int t;
+    cin>>t;
+    while(t--)
+    {
+        int S,D;
+        cin >> S >> D;
+        Solution ob;
+        cout << ob.smallestNumber(S,D) << endl;
+    }
+    return 0; 
+} 
+// } Driver Code Ends
