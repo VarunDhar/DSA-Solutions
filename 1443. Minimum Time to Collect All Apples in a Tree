@@ -1,0 +1,32 @@
+class Solution {
+public:
+    bool validateStackSequences(vector<int>& pushed, vector<int>& popped) {
+        unordered_set<int> st;
+        stack<int> sk;
+        int n = pushed.size(), i = 0 , j = 0;
+        while(i < n and j < n){
+            if(st.find(popped[j]) == st.end()){
+                st.insert(pushed[i]);
+                sk.push(pushed[i]);
+                i++;
+            }
+            else if(st.find(popped[j]) != st.end() and sk.top() == popped[j] ){
+                sk.pop();
+                j++;
+            }
+            else{
+                return false;
+            }
+        }
+        while(j < n){
+            if(st.find(popped[j]) != st.end() and sk.top() == popped[j] ){
+                sk.pop();
+                j++;
+            }
+            else{
+                return false;
+            }
+        }
+        return true;
+    }
+};
