@@ -1,0 +1,34 @@
+class Solution {
+public:
+    int nextGreaterElement(int n) {
+        string num = to_string(n);
+        int size = num.length();
+        bool brk=false;
+        if(num.length()==1)
+            return -1;
+        for(int i=1;i<num.length();i++){
+            if(num[i]>num[i-1]){
+                brk = true;
+                break;
+            }
+        }   
+        if(!brk)
+            return -1;
+        for(int i=size-2;i>=0;i--){
+            if(num[i]<num[i+1]){
+                int toswap = i+1;
+                for(int j=i+1;j<size;j++){
+                    if(num[i]<num[j] and num[toswap]>num[j])
+                        toswap = j;
+                }
+
+                swap(num[i],num[toswap]);
+                sort(num.begin()+i+1,num.end());
+                cout<<num;
+                int ans = stoll(num)>INT_MAX?-1:stoll(num);
+                return ans;
+            }
+        }
+        return -1;
+    }
+};
