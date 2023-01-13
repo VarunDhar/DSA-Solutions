@@ -1,0 +1,26 @@
+using ll = long long;
+class Solution {
+    int n;
+    ll fun(int curr, int oddeven,vector<int>& nums, vector<vector<ll>> &dp){
+        if(curr == n){
+            return 0;
+        }
+        else if(dp[curr][oddeven]!=-1){
+            return dp[curr][oddeven];
+        }
+        else{
+            if(oddeven!=1){
+            return dp[curr][oddeven] = max(nums[curr] + fun(curr+1,1,nums,dp),fun(curr+1,0,nums,dp));
+            }
+            else{
+            return dp[curr][oddeven] = max(-nums[curr] + fun(curr+1,0,nums,dp),fun(curr+1,1,nums,dp));
+            }
+        }
+    }
+public:
+    long long maxAlternatingSum(vector<int>& nums) {
+        n = nums.size();
+        vector<vector<ll>> dp(n+1,vector<ll>(2,-1));
+        return fun(0,0,nums,dp);
+    }
+};
