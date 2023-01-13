@@ -1,0 +1,43 @@
+class Solution {
+    int ans = 0;
+private:
+    int fun(int currnode,string &s,vector<int> &vis,vector<vector<int>>& adj){
+        int maxi= 0;
+        int s_max= 0;
+
+        for(auto i:adj[currnode]){
+            if(!vis[i] and s[i]!=s[currnode]){
+                vis[i] = 1;
+                int temp = fun(i,s,vis,adj);
+
+                if(temp >maxi){
+                    s_max= maxi;
+                    maxi= temp;
+                }
+                else if(temp> s_max ){
+                    s_max= temp;
+                }
+            }
+            else if(!vis[i] and s[i]==s[currnode]){
+                vis[i] = 1;
+                int temp = fun(i,s,vis,adj);
+            }
+        }
+        ans = max(ans, maxi + s_max+1);
+        return max(maxi+1,s_max+1);
+    }
+public:
+    int longestPath(vector<int>& parent, string s) {
+
+        vector<vector<int>> adj(s.length()+1);
+        for(int i=1;i<parent.size();i++)
+        {
+            adj[parent[i]].push_back(i);
+            adj[i].push_back(parent[i]);
+        }
+        vector<int> vis(100005,0);
+        vis[0]=1;
+        int temp = fun(0,s,vis,adj);
+        return ans;
+    }
+};
