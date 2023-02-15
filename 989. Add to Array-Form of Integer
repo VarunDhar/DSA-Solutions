@@ -1,0 +1,27 @@
+class Solution {
+public:
+    vector<int> addToArrayForm(vector<int>& num, int k) {
+        vector<int> norm;
+        int carry = 0;
+        auto i = num.rbegin();
+        for(;i!=num.rend() and k>0;i++){
+            norm.push_back((*i + k%10+carry)%10);
+            carry = (*i + k%10+carry)/10;
+            k/=10;
+        }
+        for(;i!=num.rend() ;i++){
+            norm.push_back((*i +carry)%10);
+            carry = (*i +carry)/10;
+        }
+        while(k>0){
+            norm.push_back((k%10+carry)%10);
+            carry = (k%10+carry)/10;
+            k/=10;
+        }
+        if(carry){
+            norm.push_back(carry);
+        }
+        reverse(norm.begin(),norm.end());
+        return norm;
+    }
+};
