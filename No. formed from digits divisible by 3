@@ -1,0 +1,37 @@
+//Ostad Presents Intra KUET Programming Contest 2023
+//PROBLEM LINK - https://codeforces.com/gym/104663/problem/K
+#include <bits/stdc++.h>
+using namespace std;
+
+int main() {
+    // Write C++ code here
+    ios_base::sync_with_stdio(false);
+    int t;
+    cin>>t;
+    while(t--){
+        int m,ans=0;
+        string n;
+        cin>>m>>n;
+        unordered_map<long long,int> mp;
+        long long sum = 0;
+        for(int i=0;i<m;i++){
+            sum+= n[i]-'0';
+            if(sum%3 == 0){
+                ans++;
+                if(mp.find(0) != mp.end()){
+                    ans+=mp[0];
+                }
+            }
+            else{
+                if(mp.find(sum%3) != mp.end()){
+                    ans+=mp[sum%3];
+                }
+            }
+            mp[sum%3]++;
+        }
+        cout<<ans<<"\n";
+        
+    }
+
+    return 0;
+}
