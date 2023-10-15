@@ -1,0 +1,32 @@
+#include <bits/stdc++.h>
+using namespace std;
+
+int main() {
+    long long n, k;
+    cin>>n>>k;
+    if(n&1){
+        if(k>n/2 +1){
+            k = k - (n/2 + 1);
+            cout<<(long long)(2*k);
+            exit(0);
+        }
+        else{
+
+            cout<<(long long)(2*k-1);
+            exit(0);
+        }
+    }
+    else{
+        if(k>n/2){
+            k = k-n/2;
+            cout<<(long long)(2*k);
+            exit(0);
+        }
+        else{
+            cout<<(long long)(2*k-1);
+            exit(0);
+        }
+    }
+
+    return 0;
+}
