@@ -1,0 +1,30 @@
+class Solution {
+public:
+    int dpfun(int idx, int steps,int &arrlen, vector<vector<int>> &dp){
+        if(steps == 0){
+            return !idx;
+        }
+        else if(dp[idx][steps] != -1){
+            return dp[idx][steps];
+        }
+        else{
+            int left = 0;
+            if(idx - 1 >=0){
+                left = dpfun(idx - 1,steps-1,arrlen,dp);
+            }
+
+            int right = 0;
+            if(idx + 1 < arrlen){
+                right = dpfun(idx + 1, steps - 1, arrlen, dp);
+            }
+
+            int samepos = dpfun(idx, steps - 1, arrlen, dp);
+
+            return dp[idx][steps] = ((long long)right + left + samepos)%(int)(1e9+7);
+        }
+    }
+    int numWays(int steps, int arrLen) {
+        vector<vector<int>> dp(steps + 10, vector<int>( steps +10, -1));
+        return dpfun(0,steps,arrLen, dp);
+    }
+};
