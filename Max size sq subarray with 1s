@@ -1,0 +1,33 @@
+// Online C++ compiler to run C++ program online
+#include <bits/stdc++.h>
+using namespace std;
+
+int main() {
+    // Write C++ code here
+    vector<vector<int>> v = { {0, 1, 1, 0, 1},
+  {1, 1, 0, 1, 0},
+  {0, 1, 1, 1, 0},
+  {1, 1, 1, 1, 0},
+  {1, 1, 1, 1, 1},
+  {0, 0, 0, 0, 0}
+  };
+    vector<vector<int>> mat(v.size(),vector<int>(v[0].size(),0));
+    int maxi = 1;
+    for(int i = 0;i<v.size();i++){
+        for(int j = 0;j<v[0].size();j++){
+            if(i == 0 or j==0){
+                mat[i][j] = v[i][j];
+            }
+            else if(v[i][j]!=1){
+                mat[i][j] = 0;
+            }
+            else{
+                mat[i][j] = min(mat[i-1][j],min(mat[i-1][j-1],mat[i][j-1])) + 1;
+            }
+            maxi = max(maxi, mat[i][j]);
+        }
+    }
+    cout<<maxi;
+
+    return 0;
+}
